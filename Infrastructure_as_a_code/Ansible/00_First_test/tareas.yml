@@ -1,0 +1,30 @@
+#- hosts: 192.168.1.131 192.168.1.145
+- hosts: locales
+  become: true
+  tasks: 
+  - name: "Instalar VIM Debian/Ubuntu"
+    apt: name=vim state=present
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  - name: "Instalar VIM CentOs/RHEL"
+    yum:
+      name: vim
+      state: present
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  - name: "Crear pruebaeldo.txt"
+    shell: touch /tmp/pruebaeldo.txt 
+  - name: "Copiar fichero filetest.txt en /tmp/filetest.txt"
+    copy:
+      src: filetest.txt
+      dest: /tmp/filetest.txt
+      owner: eldomanu
+      group: eldomanu
+      mode: 0666
+  - name: "apt update"
+    apt:
+      update_cache: yes
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  - name: "yum update"
+    yum:
+      name: "*"
+      state: latest
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
