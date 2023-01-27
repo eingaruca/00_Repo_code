@@ -1,0 +1,6 @@
+[AXIS]
+columns=["column1","column2","column3","column4","column5","column6","column7","column8","column9","column10","column11","column12","column13","column14"]
+rows=["server1","server2","server3","server4","server5","server6","server7","server8","server9","server10","server11","server12","server13","server14"]
+positionx=3
+positiony=C
+projects=["proj1","proj2","proj3"]

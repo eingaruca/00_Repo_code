@@ -1,0 +1,3 @@
+output "filtrado" {
+  value = "as"
+}
