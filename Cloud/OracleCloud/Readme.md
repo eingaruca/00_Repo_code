@@ -62,7 +62,7 @@ Información básica: [Registry](https://docs.oracle.com/es-ww/iaas/Content/Regi
   Opción "Access cluster" del cluster de Kubernetes en la consola WEB (Access cluster)
 
 ### 2.2. Objectos Kubernetes
-Deployments using Container Repository
+- Deployments using Container Repository
   Referencia: [url](https://www.oracle.com/webfolder/technetwork/tutorials/obe/oci/oke-and-registry/index.html)
   Para que los pods puedan utilizar las imágenes del Registry, se crea un "secret" con las credenciales y se añade el parámetro imagePullSecrets al deployment
     ```
