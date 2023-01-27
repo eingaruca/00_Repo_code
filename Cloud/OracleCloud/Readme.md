@@ -1,7 +1,7 @@
 # Oracle Cloud
 
 ## 1. Configurar OCI Client
-###  - Instalar
+###  1.1 Instalar
   ```
     https://docs.oracle.com/es-ww/iaas/Content/API/SDKDocs/cliinstall.htm#InstallingCLI__linux_and_unix
       * bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh)" --accept-all-defaults
@@ -16,8 +16,9 @@
 
 ## 2. Kubernetes
 ###   2.1. Infraestructura
-- Crear Container Registry
-Información básica: [Registry](https://docs.oracle.com/es-ww/iaas/Content/Registry/Concepts/registryprerequisites.htm)
+- Crear Container Registry.
+
+    Información básica: [Registry](https://docs.oracle.com/es-ww/iaas/Content/Registry/Concepts/registryprerequisites.htm)
 
 - Subir imágenes al Registry (Docker push)
   - Login docker: [URL referencia](https://docs.oracle.com/es-ww/iaas/Content/Functions/Tasks/functionslogintoocir.htm)
@@ -59,11 +60,13 @@ Información básica: [Registry](https://docs.oracle.com/es-ww/iaas/Content/Regi
       oci session validate --profile XXXXXX
   ```    
 - Para configurar OKE con OCI SDK Client
+
   Opción "Access cluster" del cluster de Kubernetes en la consola WEB (Access cluster)
 
 ### 2.2. Objectos Kubernetes
 - Deployments using Container Repository
   Referencia: [url](https://www.oracle.com/webfolder/technetwork/tutorials/obe/oci/oke-and-registry/index.html)
+
   Para que los pods puedan utilizar las imágenes del Registry, se crea un "secret" con las credenciales y se añade el parámetro imagePullSecrets al deployment
     ```
     kubectl create secret docker-registry ocirsecret --docker-server=mad.ocir.io --docker-username=axy8e4ngy2gp/isaac.agudo@atmira.com --docker-password='<use-token>' --docker-email=isaac.agudo@atmira.com
