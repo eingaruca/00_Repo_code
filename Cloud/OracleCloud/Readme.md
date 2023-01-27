@@ -10,7 +10,7 @@
       * pip3 install oci-cli --upgrade
       * oci session authenticate  / oci setup config
   ```
-###  - Configurar config file:
+###  - (No usar temporalmente) Configurar config file:
     https://docs.oracle.com/es-ww/iaas/Content/API/Concepts/apisigningkey.htm
     chmod go-rwx ~/.oci/oci_api_key.pem
 
@@ -21,12 +21,13 @@ Información básica: [Registry](https://docs.oracle.com/es-ww/iaas/Content/Regi
 
 - Subir imágenes al Registry (Docker push)
   - Login docker: [URL referencia](https://docs.oracle.com/es-ww/iaas/Content/Functions/Tasks/functionslogintoocir.htm)
+    Es importante obtener el token del usuario.
     ```
       * docker login mad.ocir.io
         - user: axy8e4ngy2gp/isaac.agudo@atmira.com
         - pass: <use-token>
     ```
-  - "Tagear" imágenes
+  - Necesitamos cambiar el TAG de las imágenes en local con el formato/ruta en el registry de Oracle Cloud
     ```
       Usar <url-login>/<object-tenancy>/<repo>:<version>
       docker tag <imageID> <mad.ocir.io/axy8e4ngy2gp/core:MIG-0.2.73>
@@ -37,7 +38,10 @@ Información básica: [Registry](https://docs.oracle.com/es-ww/iaas/Content/Regi
     ```
     
 - Crear clúster en OCI 
-  ...
+  - Requerimientos de Red
+    - Referencia: [url](https://docs.oracle.com/es-ww/iaas/Content/ContEng/Concepts/contengnetworkconfigexample.htm)
+  - Creacion clúster
+    -  Referencia: [url](https://docs.oracle.com/es-ww/iaas/Content/ContEng/Tasks/contengcreatingclusterusingoke_topic-Using_the_Console_to_create_a_Custom_Cluster_with_Explicitly_Defined_Settings.htm)
 - Acceso al cluster
   Referencia: [url](https://docs.oracle.com/es-ww/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#localdownload)
   - Añadir a la cadena de conexión:
