@@ -39,7 +39,7 @@ Información básica: [Registry](https://docs.oracle.com/es-ww/iaas/Content/Regi
 - Crear clúster en OCI 
   ...
 - Acceso al cluster
-  Referencia: [url] (https://docs.oracle.com/es-ww/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#localdownload)
+  Referencia: [url](https://docs.oracle.com/es-ww/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#localdownload)
   - Añadir a la cadena de conexión:
   ```
         --profile eldo.ingaruca --auth security_token
@@ -57,10 +57,16 @@ Información básica: [Registry](https://docs.oracle.com/es-ww/iaas/Content/Regi
 - Para configurar OKE con OCI SDK Client
   Opción "Access cluster" del cluster de Kubernetes en la consola WEB (Access cluster)
 
-### 2.2. Objectos Kuernetes
+### 2.2. Objectos Kubernetes
 Deployments using Container Repository
-  * kubectl create secret docker-registry ocirsecret --docker-server=mad.ocir.io --docker-username=axy8e4ngy2gp/isaac.agudo@atmira.com --docker-password='8ELfXOV2yV8a_n{Qlq2m' --docker-email=isaac.agudo@atmira.com
-  *       spec:
+  Referencia: [url](https://www.oracle.com/webfolder/technetwork/tutorials/obe/oci/oke-and-registry/index.html)
+  Para que los pods puedan utilizar las imágenes del Registry, se crea un "secret" con las credenciales y se añade el parámetro imagePullSecrets al deployment
+    ```
+    kubectl create secret docker-registry ocirsecret --docker-server=mad.ocir.io --docker-username=axy8e4ngy2gp/isaac.agudo@atmira.com --docker-password='<use-token>' --docker-email=isaac.agudo@atmira.com
+    ```
+    Modificación en yaml. Ruta imagen y parámetro imagePullSecrets
+    ```  
+         spec:
             containers:
             - name: core
               image: mad.ocir.io/axy8e4ngy2gp/core:MIG-0.2.73
@@ -68,12 +74,9 @@ Deployments using Container Repository
               - containerPort: 80
             imagePullSecrets:
               - name: ocirsecret
+    ```
   
+### Extra:
 Ejemplo Ingress
   - Crear ingress-controller y un ingress de ejemplo
     https://docs.oracle.com/es-ww/iaas/Content/ContEng/Tasks/contengsettingupingresscontroller.htm
-    
-Crear Cluster
-  - Básico
-    Menú, Quick Start, todo public
-  - Custom
