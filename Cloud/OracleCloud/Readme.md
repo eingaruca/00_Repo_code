@@ -1,1 +1,79 @@
-Readme
+# Oracle Cloud
+
+## 1. Configurar OCI Client
+###  - Instalar
+  ```
+    https://docs.oracle.com/es-ww/iaas/Content/API/SDKDocs/cliinstall.htm#InstallingCLI__linux_and_unix
+      * bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh)" --accept-all-defaults
+      * exec -l $SHELL
+      *********** sudo python3 -m pip install pip --upgrade 
+      * pip3 install oci-cli --upgrade
+      * oci session authenticate  / oci setup config
+  ```
+###  - Configurar config file:
+    https://docs.oracle.com/es-ww/iaas/Content/API/Concepts/apisigningkey.htm
+    chmod go-rwx ~/.oci/oci_api_key.pem
+
+## 2. Kubernetes
+###   2.1. Infraestructura
+- Crear Container Registry
+Información básica: [Registry](https://docs.oracle.com/es-ww/iaas/Content/Registry/Concepts/registryprerequisites.htm)
+
+- Subir imágenes al Registry (Docker push)
+  - Login docker: [URL referencia](https://docs.oracle.com/es-ww/iaas/Content/Functions/Tasks/functionslogintoocir.htm)
+    ```
+      * docker login mad.ocir.io
+        - user: axy8e4ngy2gp/isaac.agudo@atmira.com
+        - pass: <use-token>
+    ```
+  - "Tagear" imágenes
+    ```
+      Usar <url-login>/<object-tenancy>/<repo>:<version>
+      docker tag <imageID> <mad.ocir.io/axy8e4ngy2gp/core:MIG-0.2.73>
+    ```
+  - Docker push images
+    ```
+      docker push <mad.ocir.io/axy8e4ngy2gp/core:MIG-0.2.73>
+    ```
+    
+- Crear clúster en OCI 
+  ...
+- Acceso al cluster
+  Referencia: [url] (https://docs.oracle.com/es-ww/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#localdownload)
+  - Añadir a la cadena de conexión:
+  ```
+        --profile eldo.ingaruca --auth security_token
+      vi ~/.kube/config
+          - --profile
+          - eldo.ingaruca
+          - --auth
+          - security_token
+      export OCI_CLI_PROFILE=eldo.ingaruca
+  ```
+  ```
+      *** Cada cierto tiempo **
+      oci session validate --profile XXXXXX
+  ```    
+- Para configurar OKE con OCI SDK Client
+  Opción "Access cluster" del cluster de Kubernetes en la consola WEB (Access cluster)
+
+### 2.2. Objectos Kuernetes
+Deployments using Container Repository
+  * kubectl create secret docker-registry ocirsecret --docker-server=mad.ocir.io --docker-username=axy8e4ngy2gp/isaac.agudo@atmira.com --docker-password='8ELfXOV2yV8a_n{Qlq2m' --docker-email=isaac.agudo@atmira.com
+  *       spec:
+            containers:
+            - name: core
+              image: mad.ocir.io/axy8e4ngy2gp/core:MIG-0.2.73
+              ports:
+              - containerPort: 80
+            imagePullSecrets:
+              - name: ocirsecret
+  
+Ejemplo Ingress
+  - Crear ingress-controller y un ingress de ejemplo
+    https://docs.oracle.com/es-ww/iaas/Content/ContEng/Tasks/contengsettingupingresscontroller.htm
+    
+Crear Cluster
+  - Básico
+    Menú, Quick Start, todo public
+  - Custom
